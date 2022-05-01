@@ -5,7 +5,7 @@ button.addEventListener('click', function () {
 	let n = parseInt((document.querySelector('.input_n')).value);
 	let function_vector = Array.from(document.querySelector('.function_vector').value.substring(0, Math.pow(2, n)));
 
-	console.log(function_vector)
+	// console.log(function_vector)
 
 	let PZH = document.querySelector('.f_table');
 	PZH.innerHTML = '';
@@ -15,15 +15,17 @@ button.addEventListener('click', function () {
 
 
 
-	append_script();
+	// append_script();
 
-	console.log(document.body);
+	// console.log(document.body);
 })
 
 
 let delete_script_btn = document.querySelector('.delete_script_btn');
 let append_script_btn = document.querySelector('.append_script_btn');
+let log_body_btn = document.querySelector('.log_body_btn');
 
+log_body_btn.addEventListener('click', function() {console.log(document.body);});
 append_script_btn.addEventListener('click', append_script);
 delete_script_btn.addEventListener('click', delete_script);
 
@@ -37,19 +39,65 @@ function append_script() {
 
 	document.body.appendChild(script);
 
-	console.log(document.body);
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'unique-id']);
 }
 
 
 function delete_script() {
 	let script = document.querySelector('.LaTeXscript');
 
-	script.remove();
+	console.log(script);
 
-	console.log(document.body);
+	script.remove();
 }
 
 
+let id = 0;
+function insertLaTeX(parent, LaTeX) {
+	var newP = document.createElement("p");
+	newP.id = `#${id}`;
+	newP.innerHTML = `\\(${LaTeX}\\)`;
+
+	parent.appendChild(newP);
+
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub, `id - ${id}`]);
+	id++;
+}
+
+
+
+function Combination(n, k) {
+	var res = 1;
+
+	for (let i = n - k + 1; i <= n; i++) {
+		res *= i;
+	}
+
+	for (let i = 2; i <= k; i++) {
+		res /= i;
+	}
+
+	return res;
+}
+
+
+function factorial(n) {
+	fct = 1;
+	for (let i = 1; i <= n; i++) {
+		return
+	}
+}
+
+
+function buildElementaryConjunction(varCount, num_x_arr) {
+	let result ='';
+	
+	for (let i = 0; i < num_x_arr.length; i++) {
+		result += `x${num_x_arr[i]} `;
+	}
+
+	return result;
+}
 
 function fillBeginWithZero(str, neededLength) {
 	let tmp_str = '';
@@ -111,10 +159,31 @@ function createTable(parent, cols, rows, function_vector) {
 		table.appendChild(tr);
 	}
 
+	
+	parent.id = 'truth-table'
 	parent.appendChild(table);
 
-	console.log(x_arr);
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'truth-table']);
+
+
+	// console.log(x_arr);
 	return x_arr;
 
 
 }
+
+
+
+
+
+		// function printGlobalDNF(varCount) {
+		// 	let result = '\\[';
+		
+		// 	for (let x_count = 1; x_count <= varCount; x_count++) {
+		// 		for (let j = 0; j < Combination(x_count, varCount); j++) {
+		// 			for (let k = 0; k < Math.pow(2, x_count); k++) {
+		// 			}
+		// 		}
+		// 	}
+		// }
+		
